@@ -1,27 +1,26 @@
 
 
-
+v0 = [4]
 v1 = [2,3]
-v2 = [1,6]
-v3 = [1,4,5]
-v4 = [3]
-v5 = [3,6,8]
-v6 = [2,5]
-v7 = [8,10]
-v8 = [5,7,9,16]
-v9 = [8]
-v10 = [7,11,13]
-v11 = [10,12]
-v12 = [11,13,17]
-v13 = [10,12,14]
-v14 = [13]
-v15 = [17]
-v16= [8]
-v17 = [12,15]
+v2 = [1]
+v3 = [1,4,6]
+v4 = [0,3]
+v5 = [6,8]
+v6 = [3,5,7,14]
+v7 = [6]
+v8 = [5,9,11]
+v9 = [8,10]
+v10 = [9,11,15]
+v11 = [8,10,12]
+v12 = [11]
+v13 = [15]
+v14 = [6]
+v15 = [10,13]
 
 
 
 vetores = {   
+    0:v0,
     1:v1,
     2:v2,
     3:v3,
@@ -37,8 +36,6 @@ vetores = {
     13:v13,
     14:v14,
     15:v15,
-    16:v16,
-    17:v17
 }
 
 
@@ -51,6 +48,7 @@ class Vetor:
         self.pai = None  
 
 ListaBP = []
+Saida = []
 
 arestaarvore = []
 arestaretorno = []
@@ -60,7 +58,7 @@ def dfs(v, t):
     t += 1
     v.td = t
     for w_ in v.adj:
-        w = ListaBP[w_-1]
+        w = ListaBP[w_]
         if w.td == 0:
             w.pai = v.v
             arestaarvore.append(f"{v.v}:{w.v}")            
@@ -70,6 +68,12 @@ def dfs(v, t):
     t += 1 
     v.tt = t
     
+    
+def rota(v):
+    Saida.append(v.v)
+    if v.pai is not None:
+        rota(ListaBP[v.pai])
+        
 
 
 class Main:
@@ -83,8 +87,15 @@ class Main:
         
         dfs(raiz, t)
         
-        print(arestaarvore)
-        print(arestaretorno)
+        # print(arestaarvore)
+        # print(arestaretorno)
+        
+        
+        # for v in ListaBP:
+        #     print(f"v:{v.v}, td:{v.td}, tt:{v.tt}, pai:{v.pai}")
+       
+        rota(ListaBP[13])
+        print(Saida[::-1])
         
 
 main_instance = Main()
